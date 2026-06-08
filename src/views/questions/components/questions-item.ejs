@@ -1,0 +1,24 @@
+<li>
+  <div class="card myCard">
+    <div class="row">
+      <div class="col-3">
+        <div><%= question.votes %> Votes</div>
+        <div><%= question.answers || 0 %> Answers</div>
+        <div><%= question.views %> Views</div>
+      </div>
+      <div class="col-9">
+        <h5 class="card-title"><%= question.title %></h5>
+        <p class="card-text longText"><%= question.description %></p>
+        <p class="card-text text-muted small">Posted by: <%= question.author_name %></p>
+        <div class="row myRow">
+          <div class="col-4">
+            <a href="/questions/<%= question.id %>" class="btn btn-primary">Show details</a>
+          </div>
+          <div class="col-8 text-end">
+            Duration (hours): <%= question.duration %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../components/head") %>
+  </head>
+  <body>
+    <header><%- include("../components/header.ejs") %></header>
+    <section class="container-md mt-3">
+      <h1>Add new learing challenge</h1>
+      <form
+        class="formAdd"
+        action="/askQuestion"
+        method="POST"
+        id="recommed-form"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="challengeTitle" class="form-label">Challenge title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="challengeTitle"
+            name="challengeTitle"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            name="description"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duration [hours]</label>
+          <input
+            type="number"
+            class="form-control"
+            id="duration"
+            name="duration"
+          />
+        </div>
+        <div class="form-control">
+          <label for="image">Restaurant image</label>
+          <input type="file" id="image" name="image" accept="image/*" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add new challenge</button>
+      </form>
+    </section>
+  </body>
+</html>

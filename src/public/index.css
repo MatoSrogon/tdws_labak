@@ -1,0 +1,29 @@
+.actions {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  max-width: 30rem;
+  margin: 0px auto;
+  margin-top: 2rem;
+}
+
+.actions li {
+  padding: 1rem;
+  margin: 0px 10px;
+  background-color: #d4a373;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.actions li a {
+  text-decoration: none;
+  color: rgb(36, 36, 36);
+  box-sizing: border-box;
+}
+
+.actions li:hover,
+.actions li:active {
+  background-color: #bb8d5f;
+}

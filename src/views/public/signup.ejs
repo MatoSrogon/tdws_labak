@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <link rel="stylesheet" href="/index.css" />
+</head>
+
+<body>
+  <%- include('../components/header.ejs') %>
+    <main id="signup">
+      <h1>Signup</h1>
+      <% if (errorMessage) { %>
+        <p style="color: red;">
+          <%= errorMessage %>
+        </p>
+        <% } %>
+          <form action="/signUp" method="POST">
+            <div class="form-control">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" value="<%= formData.name || '' %>" required />
+            </div>
+            <div class="form-control">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" value="<%= formData.email || '' %>" required />
+            </div>
+            <div class="form-control">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required value="<%= formData.password || '' %>" />
+            </div>
+            <div class="form-control">
+              <label for="passwordRepeat">Password repeat</label>
+              <input type="password" id="passwordRepeat" name="passwordRepeat" required
+                value="<%= formData.passwordRepeat || '' %>" />
+            </div>
+            <button class="btn">Sign up!</button>
+          </form>
+          <div id="auth-alternative" class="divButton">
+            <a href="/login">Login instead</a>
+          </div>
+    </main>
+</body>
+
+</html>

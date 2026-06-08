@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../components/head.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      function openDeleteModal() {
+        document.getElementById("deleteModal").style.display = "block";
+      }
+      function closeDeleteModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+      function confirmDelete() {
+        document.getElementById("deleteForm").submit();
+      }
+    </script>
+    <script src="/scripts/answers.js" defer></script>
+  </head>
+
+  <body>
+    <%- include("../components/header.ejs") %>
+    <main>
+      <h1><%= question.title %></h1>
+      <% if (question.imageLocation) { %>
+        <img src="<%= question.imageLocation %>" alt="<%= question.title %>" style="max-width: 500px; height: auto; margin: 20px 0;">
+      <% } %>
+      <p><%= question.description %></p>
+      <p>
+        Views: <%= question.views %> <br>
+        Votes: <%= question.votes %> <br>
+        Date Posted: <%= new Date(question.created_at).toLocaleDateString() %> <br>
+        By: <%= question.author_name %>
+      </p>
+      <div class="question-actions">
+        <% if (canEdit) { %>
+        <a href="/questions/<%= question.id %>/edit">Edit Question</a>
+        <button onclick="openDeleteModal()" class="deleteButton">Delete</button>
+        <% } %>
+      </div>
+
+      <section class="answers-section">
+        
+        
+        <% if (locals.isAuthenticated) { %>
+        <div class="answer-form">
+          <h3>Add Your Answer</h3>
+          <form id="answerForm" data-question-id="<%= question.id %>" data-current-user-id="<%= currentUserId %>">
+            <div class="form-group">
+              <label for="comment">Your Answer:</label>
+              <textarea id="comment" name="comment" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit Answer</button>
+          </form>
+          <div id="answerFormMessage"></div>
+        </div>
+        <% } %>
+
+        <h2>Answers</h2>
+
+        <div id="answersList" class="answers-list">
+          <!-- Answers will be loaded here via AJAX -->
+        </div>
+
+        <button id="loadMoreAnswers" style="display: none;">Load More Answers</button>
+        <p id="noMoreAnswers" style="display: none;">No more answers to load.</p>
+      </section>
+    </main>
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <h2>Delete Question?</h2>
+        <p>
+          Are you sure you want to delete <%= question.title %>? This action cannot
+          be undone.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="closeDeleteModal()">
+            Cancel
+          </button>
+          <button class="btn-delete" onclick="confirmDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="editAnswerModal" class="modal">
+      <div class="modal-content">
+        <h2>Edit Answer</h2>
+        <form id="editAnswerForm">
+          <div class="form-group">
+            <label for="editComment">Your Answer:</label>
+            <textarea id="editComment" name="comment" rows="4" required></textarea>
+          </div>
+          <div class="modal-buttons">
+            <button type="button" class="btn-cancel" onclick="closeEditAnswerModal()">Cancel</button>
+            <button type="submit" class="btn-primary">Update Answer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="deleteAnswerModal" class="modal">
+      <div class="modal-content">
+        <h2>Delete Answer?</h2>
+        <p>Are you sure you want to delete this answer? This action cannot be undone.</p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="closeDeleteAnswerModal()">Cancel</button>
+          <button class="btn-delete" onclick="confirmDeleteAnswer()">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <form
+      id="deleteForm"
+      method="POST"
+      action="/questions/<%= question.id %>/delete"
+      style="display: none"
+    ></form>
+  </body>
+</html>

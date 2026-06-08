@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../components/head') %>
+    <link rel="stylesheet" href="/questionList.css" />
+    <title><%= isEdit ? 'Edit User' : 'Add User' %></title>
+  </head>
+  <body>
+    <%- include('../components/header') %>
+    <main>
+      <h1><%= isEdit ? 'Edit User' : 'Add New User' %></h1>
+      <form
+        action="<%= isEdit ? `/users/edit/${formUser.user_id}` : '/users/add' %>"
+        method="POST"
+        id="user-form"
+      >
+        <div class="form-control">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= formUser ? formUser.name : '' %>"
+            required
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="<%= formUser ? formUser.email : '' %>"
+            required
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="password">Password</label>
+          <% if (isEdit) { %>
+            <input type="password" id="password" name="password" autocomplete="new-password" />
+          <% } else { %>
+            <input type="password" id="password" name="password" required />
+          <% } %>
+          <small><%= isEdit ? 'Leave empty to keep current password' : 'Must be at least 8 characters with uppercase, lowercase, and number' %></small>
+        </div>
+
+        <div class="form-control" style="display: flex; align-items: center;">
+          <label> Set as Admin </label>
+          <input type="checkbox" style="width: 24px; height: 24px; margin-bottom: 1rem;" id="isAdmin" name="isAdmin" value="1" <%= (formUser && formUser.isAdmin === 1) ? 'checked' : '' %> />
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: end">
+          <a href="/users" class="btn-secondary">Go Back</a>
+          <button><%= isEdit ? 'Update User' : 'Add User' %></button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

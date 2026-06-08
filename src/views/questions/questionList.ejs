@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../components/head") %>
+    <link rel="stylesheet" href="/questionList.css" />
+  </head>
+  <body>
+    <header><%- include("../components/header") %></header>
+    <section class="container-md mt-3 text-center">
+      <div class="container text-center row myRow">
+        <div class="col">
+          <h1>All Questions</h1>
+        </div>
+        <div class="col">
+          <a href="/askQuestion" class="btn btn-primary">Ask question</a>
+        </div>
+      </div>
+      <% if (questions.length === 0) { %>
+      <p class="homeMainText">No questions found.</p>
+      <% } else { %>
+      <p class="homeMainText"><%= questions.length %> questions found.</p>
+    </section>
+    <section class="container">
+      <ul>
+        <% questions.forEach(function(question) { %> <%-
+        include("../questions/components/questions-item", { question }) %> <% })
+        %>
+      </ul>
+      <% } %>
+    </section>
+  </body>
+</html>
